@@ -79,6 +79,7 @@
 	                   LEFT OUTER JOIN SEI_TimeMachine2.dbo.[USER] team_user ON (Team_Linking.[user_id] = team_user.[user_id])
 	                   LEFT OUTER JOIN SEI_TimeMachine2.dbo.[ENTRY] ON ([ENTRY].entry_user_id = team_user.[user_id])
                    WHERE Teams.active = 'Y'
+                      AND (Teams.pm_user_id = ISNULL(@pm_user_id, '') OR @pm_user_id = @ceo_user_id)
                    GROUP BY Teams.team_key,
                             Teams.team_name,
                             Teams.course_id,
@@ -94,6 +95,10 @@
 	                   @team_name, 'Y', @course_id, @project_id, @pm_user_id
                    );"
                DeleteCommand="DELETE FROM SEI_Archimedes.dbo.Teams WHERE Teams.team_key = @team_key">
+               <SelectParameters>
+                   <asp:SessionParameter Name="pm_user_id" SessionField="username" />
+                   <asp:SessionParameter Name="ceo_user_id" SessionField="ceo_id" />
+               </SelectParameters>
                <InsertParameters>
                    <asp:ControlParameter Name="team_name" ControlID="txtTeamName" PropertyName="Text" />
                    <asp:ControlParameter Name="project_id" ControlID="ddlProject" PropertyName="SelectedValue" />
@@ -107,7 +112,7 @@
        </div>
        <div id="aux_panel">
           <div>
-             <h3>Add a Team</h3>
+             <h3 id="add_team" runat="server">Add a Team</h3>
               <asp:Label ID="lblTeamName" runat="server"
                   AssociatedControlID="txtTeamName"
                   Text="Team Name:" />

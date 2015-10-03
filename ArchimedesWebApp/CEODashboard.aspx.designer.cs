@@ -40,6 +40,15 @@ namespace ArchimedesWebApp {
         protected global::System.Web.UI.WebControls.SqlDataSource dsTeams;
         
         /// <summary>
+        /// add_team control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl add_team;
+        
+        /// <summary>
         /// lblTeamName control.
         /// </summary>
         /// <remarks>
